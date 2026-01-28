@@ -1,92 +1,89 @@
-Rydora is a complete ride-sharing system designed for real-world urban mobility, combining cost efficiency, security, and scalability. Unlike typical apps where all logic is inside the mobile app, Rydora separates responsibilities into three layers:
+🚗 Rydora – Real-World Ride-Sharing App
 
-Passenger App (Flutter + GraphHopper)
+Rydora is a smart, real-world ride-sharing system designed to make urban commuting faster, safer, and cost-efficient.
 
-Lightweight mobile client
+Unlike normal apps, Rydora is modular and secure: the mobile apps are lightweight, and the core logic runs in a Python-based admin engine.
 
-Allows passengers to:
+🌟 How Rydora Works – 3 Layers
+1️⃣ Passenger App (Flutter + GraphHopper)
+
+📱 Purpose: Allow passengers to request rides easily
+
+⚡ Features:
 
 Select pickup & destination
 
-View route and fare
+View route & fare
 
-Request rides
+Request ride
 
-Uses GraphHopper API for precise routing and fare estimation
+🗺️ Tech: GraphHopper API for precise routing & fare calculation
 
-Rider App (Flutter + OpenStreetMap)
+2️⃣ Rider App (Flutter + OpenStreetMap)
 
-Lightweight driver client
+🚖 Purpose: Allow drivers to accept and complete rides
 
-Features:
+⚡ Features:
 
-Go online/offline
+Go online/offline 🟢/🔴
 
-Live location tracking (heartbeat every 5–10 seconds)
+Live location updates every 5–10 seconds
 
-Navigation using OpenStreetMap (cost-free alternative to Google Maps)
+Navigate using OpenStreetMap (cost-effective)
 
-Sends updates to Firestore so the admin engine can match riders to passengers
+🗺️ Tech: OSM for continuous tracking
 
-Python Admin Matcher (Jupyter Notebook)
+3️⃣ Python Admin Matcher (Jupyter Notebook)
 
-Core backend engine and admin dashboard
+🧠 Purpose: The “brain” of Rydora
 
-Responsibilities:
+⚡ Features:
 
-Match ride requests to nearest available riders
+Matches riders to passengers based on distance (Haversine formula)
 
-Generate OTP for ride start (prevents fake rides)
+Generates OTP for ride start 🔑
 
-Admin controls (ban/unban users, verify drivers)
+Admin controls: ban/unban drivers, verify users 👥
 
-Analytics (ride density, peak-hour trends)
+Analytics: ride density, peak hours 📊
 
-System recovery (reset stuck rides, clear inactive drivers)
+System recovery after crashes 🔄
 
-Key Features & Advantages:
+💡 Key Features & Advantages
 
-Secure backend matching: Riders and passengers cannot manipulate assignment logic
+🔒 Secure backend matching: Users cannot manipulate ride assignment
 
-Cost-optimized mapping: Uses OSM for frequent driver updates, GraphHopper for precise passenger routing
+💰 Cost-efficient mapping: GraphHopper only for passengers, OSM for riders
 
-Real-time tracking: Firestore enables live state synchronization
+⏱️ Real-time tracking: Firestore keeps everything updated instantly
 
-Admin control & analytics: Jupyter Notebook allows live code execution for system monitoring
+🧪 Admin flexibility: Jupyter Notebook allows live monitoring and adjustments
 
-OTP-based ride start: Verifies physical rider-passenger presence
+🆔 OTP-based ride start: Ensures physical rider-passenger verification
 
-Scalable & modular: Easy to extend (AI demand prediction, surge pricing, ride pooling)
+🏗️ Scalable & modular: Easy to add AI features, surge pricing, pooling
 
-Problem Solved:
+🌍 Problems Rydora Solves
 
-Eliminates inefficiencies in ride matching
+❌ Long wait times due to inefficient matching
 
-Reduces dependency on expensive map APIs
+❌ High cost of commercial map APIs
 
-Provides admin flexibility for real-time control and analytics
+❌ Backend logic exposed in mobile apps
 
-Makes a secure, startup-friendly, and production-like ride-sharing solution
+❌ No real-time admin controls
 
-Use Cases:
+❌ Difficult to scale early-stage apps
 
-College / final-year project
+Rydora solves this using a secure, cost-effective, and modular architecture.
 
-Startup MVP
+🎯 Use Cases
 
-System-design portfolio
+🎓 College / Final-year project
 
-Demonstrates backend + distributed system concepts
+🚀 Startup MVP
 
-Perfect 👍
-Below is a **ready-to-use README section** that **fully satisfies evaluation / placement / GitHub guidelines**.
-
-You can **copy-paste this directly** into each Rydora repository
-(Passenger App / Rider App / Admin Matcher), with **small edits per repo**.
-
----
-
-# 📘 README.md – Mandatory Project Documentation
+📱 System-design demo
 
 ## 🚀 Steps to Run the Project
 
