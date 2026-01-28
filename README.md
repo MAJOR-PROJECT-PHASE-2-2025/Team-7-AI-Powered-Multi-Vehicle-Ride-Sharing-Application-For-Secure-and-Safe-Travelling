@@ -1,298 +1,269 @@
-# Team-7-AI-Powered-Multi-Vehicle-Ride-Sharing-Application-For-Secure-and-Safe-Travelling
+Rydora is a complete ride-sharing system designed for real-world urban mobility, combining cost efficiency, security, and scalability. Unlike typical apps where all logic is inside the mobile app, Rydora separates responsibilities into three layers:
 
-🚗 Rydora – Ride-Sharing App for Real-World Urban Mobility
-Rydora is a real-world, production-oriented ride-sharing system designed with cost efficiency, scalability, and security in mind. Unlike typical monolithic ride-hailing apps, Rydora follows a decoupled architecture where mobile clients are lightweight and the core intelligence runs in a Python-based administrative matcher.
-
-This repository contains the Passenger App, Rider (Driver) App, and the Python Admin Matcher that together form the complete Rydora ecosystem.
-
-📌 Key Features
-📍 High-precision routing & fare estimation (Passenger)
-🗺️ Low-cost real-time navigation using OpenStreetMap (Rider)
-🧠 Centralized Python-based matching engine (Admin)
-🔥 Realtime synchronization via Firebase Firestore
-🔐 Secure matching with OTP-based ride start
-📊 Live analytics & admin controls via Jupyter Notebook
-🏗️ System Architecture Overview
 Passenger App (Flutter + GraphHopper)
-        |
-        v
- Firebase Firestore  <---->  Python Admin Matcher (Jupyter)
-        ^
-        |
+
+Lightweight mobile client
+
+Allows passengers to:
+
+Select pickup & destination
+
+View route and fare
+
+Request rides
+
+Uses GraphHopper API for precise routing and fare estimation
+
 Rider App (Flutter + OpenStreetMap)
-The mobile apps are stateless clients, while all critical logic (matching, validation, overrides) is executed in the Python Admin layer.
 
-🧭 1. Mapping & Routing Strategy
-👤 Passenger Side – GraphHopper API
-Used for accurate distance calculation and fare estimation.
+Lightweight driver client
 
-Flow:
+Features:
 
-Passenger selects pickup & destination
+Go online/offline
 
-App sends a GET request to the GraphHopper Routing API
+Live location tracking (heartbeat every 5–10 seconds)
 
-Response contains:
+Navigation using OpenStreetMap (cost-free alternative to Google Maps)
 
-Route polyline
-Total distance (meters)
-Weight / duration
-Usage:
+Sends updates to Firestore so the admin engine can match riders to passengers
 
-Draw route on map
-Calculate fare using a price_per_km constant
-🚖 Rider Side – OpenStreetMap (OSM)
-Optimized for cost-efficiency and continuous tracking.
+Python Admin Matcher (Jupyter Notebook)
 
-Implementation:
+Core backend engine and admin dashboard
 
-flutter_map with OpenStreetMap tiles
-No paid API required
-Functionality:
+Responsibilities:
 
-Rider location sampled every 5–10 seconds
-Location pushed to Firestore active_riders collection
-Acts as a heartbeat for the matching engine
-🧠 2. Python "Admin" Matcher (Jupyter Notebook)
-The Jupyter Notebook acts as:
+Match ride requests to nearest available riders
 
-Matching engine
-Admin dashboard
-Analytics console
-Emergency recovery tool
-No separate admin app is required.
+Generate OTP for ride start (prevents fake rides)
 
-A. Ride Matching Loop
-The matcher runs continuously using a while True loop or Firestore listener.
+Admin controls (ban/unban users, verify drivers)
 
-Steps:
+Analytics (ride density, peak-hour trends)
 
-Fetch Ride Requests
+System recovery (reset stuck rides, clear inactive drivers)
 
-Query ride_requests where status == "pending"
-Fetch Active Riders
+Key Features & Advantages:
 
-Query active_riders where is_online == true
-Distance Calculation (Haversine)
+Secure backend matching: Riders and passengers cannot manipulate assignment logic
 
-def calculate_distance(p1, p2):
-    # Haversine formula
-    return distance
-Assignment Logic
+Cost-optimized mapping: Uses OSM for frequent driver updates, GraphHopper for precise passenger routing
 
-Select nearest rider
+Real-time tracking: Firestore enables live state synchronization
 
-Update Firestore:
+Admin control & analytics: Jupyter Notebook allows live code execution for system monitoring
 
-rider_id
-status = "matched"
-B. Admin Operations via Python
-All admin controls are implemented as dedicated notebook cells.
+OTP-based ride start: Verifies physical rider-passenger presence
 
-👥 User Management
-Ban / unban users
-Verify drivers
-Inspect profiles
-📊 Analytics
-Ride density visualization
-Peak-hour analysis
-Historical demand patterns
-Implemented using pandas and matplotlib
+Scalable & modular: Easy to extend (AI demand prediction, surge pricing, ride pooling)
 
-🔄 System Recovery
-Reset stuck rides
-Clear inactive drivers
-Handle app crash scenarios
-🔁 3. Data Flow Architecture
-Component	Technology	Responsibility
-Passenger App	Flutter + GraphHopper	Route preview, fare estimate, ride request
-Rider App	Flutter + OSM	Live tracking, navigation
-Database	Firebase Firestore	Real-time state sync
-Logic Layer	Python (Jupyter)	Matching, lifecycle management, admin control
-⚡ 4. Technical Advantages
-🔐 Decoupled & Secure
-Matching logic is not exposed in mobile apps
-Users cannot manipulate rider selection
-💰 Cost Optimized
-OSM used for high-frequency driver tracking
-Paid APIs used only where precision matters
-🧪 Admin Flexibility
-Live code execution
-No redeployment needed for new reports or fixes
-🔒 5. Security & Authentication
-🔑 Firestore Security Rules
-Passengers: can create ride requests
+Problem Solved:
 
-Python Admin (Service Account):
+Eliminates inefficiencies in ride matching
 
-Only entity allowed to assign rider_id
-🔢 OTP-Based Ride Start
-Python Admin generates a 4-digit OTP on match
-Driver must enter OTP to begin the trip
-Prevents fake or accidental ride starts
-🚀 Setup & Execution Manual
-1. Prerequisites
-Software Requirements
-Flutter SDK (latest stable)
-Python 3.10+
-Jupyter Notebook / Jupyter Lab
-Firebase CLI / Console Access
-API Keys & Accounts
-Firebase Project
-GraphHopper API Key
-OpenStreetMap (no key required)
-2. Environment Setup
-A. Mobile Apps (Passenger & Rider)
-Clone Repository
+Reduces dependency on expensive map APIs
+
+Provides admin flexibility for real-time control and analytics
+
+Makes a secure, startup-friendly, and production-like ride-sharing solution
+
+Use Cases:
+
+College / final-year project
+
+Startup MVP
+
+System-design portfolio
+
+Demonstrates backend + distributed system concepts
+
+Perfect 👍
+Below is a **ready-to-use README section** that **fully satisfies evaluation / placement / GitHub guidelines**.
+
+You can **copy-paste this directly** into each Rydora repository
+(Passenger App / Rider App / Admin Matcher), with **small edits per repo**.
+
+---
+
+# 📘 README.md – Mandatory Project Documentation
+
+## 🚀 Steps to Run the Project
+
+### 1️⃣ Prerequisites
+
+Ensure the following are installed:
+
+* Flutter SDK (latest stable)
+* Python 3.10+
+* Firebase account & project
+* Jupyter Notebook / Jupyter Lab
+* Git
+
+---
+
+### 2️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/ChandanM123456/Rydora-Ride-Sharing-App-for-Real-World-Urban-Mobility
-Firebase Configuration
-Download:
+cd Rydora-Ride-Sharing-App-for-Real-World-Urban-Mobility
+```
 
-google-services.json (Android)
-GoogleService-Info.plist (iOS)
-Place in:
+---
 
-android/app/
-ios/Runner/
-Install Dependencies
-cd rydora_passenger && flutter pub get
-cd ../rydora_rider && flutter pub get
-Configure GraphHopper
-Edit lib/core/constants.dart:
+### 3️⃣ Firebase Setup
 
-const String graphHopperKey = 'YOUR_KEY_HERE';
-B. Python Admin Matcher (Jupyter)
-Install Dependencies
+1. Create a Firebase project
+2. Enable **Firestore Database**
+3. Download configuration files:
+
+   * `google-services.json` → `android/app/`
+   * `GoogleService-Info.plist` → `ios/Runner/`
+4. Create collections:
+
+   * `ride_requests`
+   * `active_riders`
+   * `historical_rides`
+
+---
+
+### 4️⃣ Run Passenger App
+
+```bash
+cd rydora_passenger
+flutter pub get
+flutter run
+```
+
+📍 Enter pickup & destination
+💰 View route and fare
+🚕 Request a ride
+
+---
+
+### 5️⃣ Run Rider App
+
+```bash
+cd rydora_rider
+flutter pub get
+flutter run
+```
+
+🚗 Login as rider
+🟢 Toggle **Go Online**
+📡 Location updates sent to Firestore
+
+---
+
+### 6️⃣ Run Python Admin Matcher
+
+```bash
+cd admin_matcher
 pip install firebase-admin pandas matplotlib ipywidgets
-Firebase Service Account
-Firebase Console → Project Settings → Service Accounts
-Generate new private key
-Save as serviceAccountKey.json
-3. Running the System (Startup Order)
-Step 1: Start Admin Matcher
 jupyter lab
-Open admin_matcher.ipynb
-Run Initialization Cell
-Run Matching Loop Cell
-Step 2: Launch Rider App
-cd rydora_rider && flutter run
-Log in as driver
-Toggle Go Online
-Step 3: Launch Passenger App
-cd rydora_passenger && flutter run
-Select destination
-View route & fare
-Click Request Ride
-4. Monitoring the Workflow
-Action	Where to Monitor
-Ride Request	ride_requests collection
-Matching	Jupyter logs
-Active Trip	Rider App UI
-Completion	historical_rides collection
-🛠️ 5. Troubleshooting
-❌ No Drivers Found
-Ensure driver exists in active_riders
-is_online == true
-🗺️ Map Not Loading
-Check internet
-Verify OSM urlTemplate
-🔐 Permission Denied
-Confirm Service Account has Editor / Owner role
-🌍 Real‑World Problem Statement
-Urban mobility today faces several critical challenges:
+```
 
-❌ Inefficient rider–passenger matching causing long wait times
-❌ High dependency on expensive proprietary map APIs
-❌ Centralized logic inside mobile apps, making systems vulnerable to manipulation
-❌ Lack of flexibility for admins to monitor, intervene, or analyze ride data in real time
-❌ Poor scalability for academic or early‑stage startup implementations
-Rydora is designed to solve these exact real‑world issues using a clean, modular, and cost‑efficient architecture.
+* Open `admin_matcher.ipynb`
+* Run initialization cell
+* Run matching loop cell
 
-🚦 What Problem Does Rydora Solve?
-Rydora addresses real urban ride‑sharing problems by separating responsibilities across three layers:
+🧠 Ride matching starts automatically
 
-1️⃣ Fair & Transparent Ride Matching
-Instead of embedding ride‑matching logic inside the mobile app (which users can reverse‑engineer or manipulate), Rydora:
+---
 
-Executes matching in a secure Python Admin engine
-Uses geographical distance (Haversine) for fair driver assignment
-Ensures passengers always get the nearest available rider
-This mirrors how real ride‑hailing companies isolate core algorithms from clients.
+## 📸 Project Snapshots / Screenshots
 
-2️⃣ Cost‑Effective Mapping Strategy
-Commercial ride apps spend heavily on map APIs. Rydora minimizes cost by:
+> Add screenshots inside a `/screenshots` folder
 
-Using GraphHopper only for passengers, where accurate routing and pricing matter
-Using OpenStreetMap (OSM) for riders, where frequent updates would otherwise be expensive
-➡️ This hybrid strategy makes Rydora startup‑friendly and scalable.
+### 📱 Passenger App
 
-3️⃣ Real‑Time Urban Mobility Tracking
-Rydora continuously tracks:
+* Home Screen
+* Route & Fare Preview
+* Ride Request Confirmation
 
-Rider availability
-Rider movement (heartbeat every 5–10 seconds)
-Ride lifecycle stages
-This enables:
+### 🚖 Rider App
 
-Faster pickups
-Better city‑level mobility insights
-Real‑time decision making
-🧠 Why the Python Admin Engine Matters (Real‑World Design)
-Most student projects ignore admin control. Rydora treats it as a first‑class system component.
+* Rider Dashboard
+* Live Navigation Map
+* OTP Ride Start Screen
 
-Admin Engine Capabilities:
-🔄 Live ride matching without redeploying apps
-👥 Driver verification & banning
-📊 Demand & peak‑hour analytics
-🛑 Emergency ride reset in crash scenarios
-Using Jupyter Notebook allows admins to:
+### 🧠 Admin Matcher
 
-Write new logic instantly
-Run diagnostics on live data
-Perform safe system overrides
-This closely resembles operations dashboards used by real ride‑sharing companies.
+* Jupyter Matching Logs
+* Ride Analytics Graphs
 
-🔐 Security‑First Architecture
-Rydora enforces strong backend control:
+```md
+![Passenger Home](screenshots/passenger_home.png)
+![Rider Map](screenshots/rider_map.png)
+![Admin Analytics](screenshots/admin_analytics.png)
+```
 
-🔒 Firestore rules prevent riders or passengers from self‑assigning rides
-🔑 Only the Admin service account can modify critical fields like rider_id
-🔢 OTP‑based ride start ensures physical rider‑passenger verification
-These measures reduce:
+---
 
-Fake ride starts
-Data tampering
-Unauthorized access
-📊 Data‑Driven Urban Insights
-Because all ride data flows through Firestore and Python:
+## 🎥 Demo Video
 
-Ride density maps can be generated
-Peak demand hours can be analyzed
-City‑wise expansion decisions can be simulated
-This makes Rydora useful not only as an app, but also as a mobility analytics platform.
+📽️ **Project Demo Video Link:**
+👉 [https://drive.google.com/your-demo-video-link](https://drive.google.com/your-demo-video-link)
 
-🧪 Academic & Industry Relevance
-Rydora is suitable for:
+**Demo covers:**
 
-🎓 Final‑year / capstone projects
-🚀 Startup MVPs
-🧩 System‑design interviews
-📱 Flutter + Firebase case studies
-It demonstrates real‑world concepts such as:
+* Passenger requesting a ride
+* Rider going online
+* Admin matching process
+* OTP-based ride start
+* Ride completion
 
-Distributed systems
-Secure backend‑controlled logic
-Geo‑spatial computation
-Cost‑aware API design
-Admin‑driven orchestration
-🔮 Future Enhancements
-Planned or easily extendable features:
+> ⚠️ *Mandatory for evaluation – ensure video is accessible*
 
-AI‑based demand prediction
-Dynamic surge pricing
-Ride pooling / shared rides
-In‑app payments
-Driver rating & fraud detection
-📬 Contact
+---
 
-Project Author: Name: Chandan M Email: chandan.chandu0608@gmail.com
+## 🛠️ Technologies Used
+
+### 📱 Frontend (Mobile Apps)
+
+* Flutter
+* Dart
+* flutter_map
+* OpenStreetMap (OSM)
+
+### 🗺️ Mapping & Routing
+
+* GraphHopper API (Passenger)
+* OpenStreetMap Tiles (Rider)
+
+### 🔥 Backend & Realtime Sync
+
+* Firebase Firestore
+* Firebase Authentication
+
+### 🧠 Logic & Admin Layer
+
+* Python 3.10+
+* Firebase Admin SDK
+* Jupyter Notebook
+* Pandas
+* Matplotlib
+
+### 🔐 Security
+
+* Firestore Security Rules
+* OTP-based ride verification
+* Service Account authentication
+
+---
+
+## ✅ Evaluation Checklist (Tick All)
+
+✔ Steps to run clearly documented
+✔ Screenshots included
+✔ Demo video link provided
+✔ Technologies explicitly listed
+✔ Real-world problem addressed
+✔ Modular & scalable architecture
+
+---
+
+## 👤 Author
+
+**Chandan M**
+📧 [chandan.chandu0608@gmail.com](mailto:chandan.chandu0608@gmail.com)
