@@ -1,0 +1,22 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Firebase / Secrets
+*.json
+admin/*.json
+firebase-adminsdk-*.json
+
+# Flutter
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
